@@ -22,7 +22,7 @@ npm install -g globimp
 At the root of your npm project
 
 ```shell
-npm globimp
+globimp
 ```
 
 This will generate a `globimp.config.json` based on your `package.json` at the root.
@@ -63,7 +63,7 @@ In `globimp.config.json`, to have access a the default import, set the dependenc
 }
 ```
 
-> **WARNING**: Any change in `globimp.config.json` require a `npm globimp` in order for the update to be taken into account
+> **WARNING**: Any change in `globimp.config.json` require a `globimp` in order for the update to be taken into account
 
 ## Global named imports
 
@@ -75,4 +75,4 @@ In `globimp.config.json`, to access a named import globally, add the name of the
   }
 ```
 
-> **WARNING**: Any change in `globimp.config.json` require a `npm globimp` in order for the update to be taken into account
+> **WARNING**: Any change in `globimp.config.json` require a `globimp` in order for the update to be taken into account
