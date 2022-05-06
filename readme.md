@@ -11,8 +11,8 @@
 Chose one of :
 
 ```shell
+yarn global add globimp
 npm i globimp -g
-yarn add globimp -g
 pnpm add globimp -g
 ```
 
