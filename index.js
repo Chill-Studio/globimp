@@ -1,8 +1,8 @@
-#!/usr/bin/env node
+const packageJSON = require(dir + "/package.json");
+console.log("Globimp v", packageJSON.version);
 
 const fs = require("fs");
 const dir = process.cwd();
-const packageJSON = require(dir + "/package.json");
 try {
   console.log("Globimp: Try to read configuration file...");
   addDiffPackageJSONInConfig();
