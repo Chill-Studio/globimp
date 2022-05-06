@@ -1,7 +1,7 @@
+#!/usr/bin/env node
 const fs = require("fs");
-const dir = process.cwd()
+const dir = process.cwd();
 const packageJSON = require(dir + "/package.json");
-
 
 try {
   console.log("Globimp: Try to read configuration file...");
@@ -10,9 +10,7 @@ try {
   console.log("Globimp: No configuration file found, creating one");
   createConfigFile();
 }
-createImportsTypings()
-
-
+createImportsTypings();
 
 function createImportsTypings() {
   console.log("Globimp: Creating types for named imports...");
@@ -29,15 +27,25 @@ function createImportsTypings() {
       globalVar += `global.${importKey} = ${importKey}_ as any\n`;
     } else {
       // handle named imports
-      const currentNamedImportsList = oldConfig.namedImports[importKey]
-      const innerImportStatement = currentNamedImportsList.map(namedImport => `${namedImport} as ${namedImport}_`).join(", ")
-      if (innerImportStatement !== '') {
-        imports += `import {${innerImportStatement} } from "${importKey}"\n`
-        typings += currentNamedImportsList.map(namedImport => `    var ${namedImport} : typeof ${namedImport}_`).join("\n")
-        globalVar += currentNamedImportsList.map(namedImport => `global.${namedImport} = ${namedImport}_ as any`).join("\n") + "\n"
+      const currentNamedImportsList = oldConfig.namedImports[importKey];
+      const innerImportStatement = currentNamedImportsList
+        .map((namedImport) => `${namedImport} as ${namedImport}_`)
+        .join(", ");
+      if (innerImportStatement !== "") {
+        imports += `import {${innerImportStatement} } from "${importKey}"\n`;
+        typings += currentNamedImportsList
+          .map(
+            (namedImport) => `    var ${namedImport} : typeof ${namedImport}_`
+          )
+          .join("\n");
+        globalVar +=
+          currentNamedImportsList
+            .map(
+              (namedImport) => `global.${namedImport} = ${namedImport}_ as any`
+            )
+            .join("\n") + "\n";
       }
     }
-
   }
 
   if (typings !== "") {
@@ -48,7 +56,6 @@ function createImportsTypings() {
   fs.writeFileSync(dir + `/src/globimp.ts`, imports + typings + globalVar, {
     newline: true,
   });
-
 }
 
 function createConfigFile() {
@@ -59,9 +66,13 @@ function createConfigFile() {
     imports.namedImports[dependencieKey] = [];
   }
 
-  fs.writeFileSync(dir + `/globimp.config.json`, JSON.stringify(imports, null, 2), {
-    newline: true,
-  });
+  fs.writeFileSync(
+    dir + `/globimp.config.json`,
+    JSON.stringify(imports, null, 2),
+    {
+      newline: true,
+    }
+  );
 }
 
 function addDiffPackageJSONInConfig() {
@@ -70,14 +81,15 @@ function addDiffPackageJSONInConfig() {
 
   createConfigFile();
 
-
   let newConfig = JSON.parse(fs.readFileSync(dir + `/globimp.config.json`));
 
   // Merge existing key
   for (const oldDefaultImportKey in oldConfig.defaultImports) {
     if (oldDefaultImportKey in newConfig.defaultImports) {
-      newConfig.defaultImports[oldDefaultImportKey] = oldConfig.defaultImports[oldDefaultImportKey];
-      newConfig.namedImports[oldDefaultImportKey] = oldConfig.namedImports[oldDefaultImportKey];
+      newConfig.defaultImports[oldDefaultImportKey] =
+        oldConfig.defaultImports[oldDefaultImportKey];
+      newConfig.namedImports[oldDefaultImportKey] =
+        oldConfig.namedImports[oldDefaultImportKey];
     }
   }
 
@@ -88,5 +100,4 @@ function addDiffPackageJSONInConfig() {
       newline: true,
     }
   );
-
 }
