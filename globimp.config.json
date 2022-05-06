@@ -1,8 +1,4 @@
 {
-  "defaultImports": {
-    "globimp": false
-  },
-  "namedImports": {
-    "globimp": []
-  }
+  "defaultImports": {},
+  "namedImports": {}
 }
