@@ -6,6 +6,10 @@
 
 ## Getting started
 
+### Video tutorial
+
+[Watch the video](https://streamable.com/p0bibc)
+
 ### Installation
 
 ```shell
