@@ -1,5 +1,9 @@
 # Globimp
 
+## Github sources
+
+[https://github.com/Chill-Studio/globimp/tree/main](https://github.com/Chill-Studio/globimp/tree/main)
+
 ## Getting started
 
 ### Installation
