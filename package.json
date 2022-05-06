@@ -1,6 +1,6 @@
 {
   "name": "globimp",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Allow to have global variables and function coming from node_modules accessible from anywhere, with typings.",
   "main": "index.js",
   "bin": {

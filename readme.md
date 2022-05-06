@@ -25,14 +25,6 @@ At the root of your npm project
 npm globimp
 ```
 
-Then in `package.json` add `npm globimp` to your start, build and tests scripts
-
-```json
-    "start": "npm globimp && <your other start scripts>",
-    "build": "npm globimp && <your other build scripts>",
-    "test": "npm globimp && <your other test scripts>",
-```
-
 This will generate a `globimp.config.json` based on your `package.json` at the root.
 It will also generate an `globimp.ts` in `<root-of-project>/src`
 
