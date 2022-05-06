@@ -8,12 +8,9 @@
 
 ### Installation
 
-Chose one of :
-
 ```shell
-yarn global add globimp
-npm i globimp -g
-pnpm add globimp -g
+npm install -g globimp
+
 ```
 
 ### Generate a globimp files
