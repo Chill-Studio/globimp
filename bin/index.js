@@ -13,8 +13,8 @@ try {
   createConfigFile();
 }
 createImportsTypings();
+console.log("Globimp: Done!");
 function createImportsTypings() {
-  console.log("Globimp: Creating types for named imports...");
   const oldConfig = require(dir + "/globimp.config.json");
   let imports = "";
   let typings = "";
@@ -48,7 +48,6 @@ function createImportsTypings() {
   if (typings !== "") {
     typings = `declare global {\n${typings}\n}\n`;
   }
-  console.log("Globimp: Creating global vars for default imports...");
   fs.writeFileSync(dir + `/src/globimp.ts`, imports + typings + globalVar, {
     newline: true,
   });
@@ -72,17 +71,18 @@ function addDiffPackageJSONInConfig() {
   let oldConfig = JSON.parse(fs.readFileSync(dir + `/globimp.config.json`));
   createConfigFile();
   let newConfig = JSON.parse(fs.readFileSync(dir + `/globimp.config.json`));
-  // Merge existing key for (const oldDefaultImportKey in oldConfig.defaultImports) {
-  if (oldDefaultImportKey in newConfig.defaultImports) {
-    newConfig.defaultImports[oldDefaultImportKey] =
-      oldConfig.defaultImports[oldDefaultImportKey];
-    newConfig.namedImports[oldDefaultImportKey] =
-      oldConfig.namedImports[oldDefaultImportKey];
+  // // Merge existing key
+  for (const oldDefaultImportKey in oldConfig.defaultImports) {
+    if (oldDefaultImportKey in newConfig.defaultImports) {
+      newConfig.defaultImports[oldDefaultImportKey] =
+        oldConfig.defaultImports[oldDefaultImportKey];
+      newConfig.namedImports[oldDefaultImportKey] =
+        oldConfig.namedImports[oldDefaultImportKey];
+    }
+    fs.writeFileSync(
+      dir + `/globimp.config.json`,
+      JSON.stringify(newConfig, null, 2),
+      { newline: true }
+    );
   }
-
-  fs.writeFileSync(
-    dir + `/globimp.config.json`,
-    JSON.stringify(newConfig, null, 2),
-    { newline: true }
-  );
 }
