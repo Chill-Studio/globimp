@@ -1,5 +1,8 @@
 # Globimp
 
+Access node_modules functions and variables from anywhere, without imports.
+With typescript support !
+
 ## Github sources
 
 [https://github.com/Chill-Studio/globimp/tree/main](https://github.com/Chill-Studio/globimp/tree/main)
