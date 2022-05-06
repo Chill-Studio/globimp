@@ -1,14 +1,14 @@
 {
   "name": "globimp",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Allow to have global variables and function coming from node_modules accessible from anywhere, with typings.",
   "main": "index.js",
   "bin": {
-    "globimp": "./index.js"
+    "globimp": "./bin/index.js"
   },
   "preferGlobal": true,
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kakouloukiam",
