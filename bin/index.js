@@ -2,10 +2,11 @@
 
 const fs = require("fs");
 const dir = process.cwd();
+const ownPackageJSON = require("../package.json");
 const packageJSON = require(dir + "/package.json");
 
 try {
-  console.log("Globimp: v", packageJSON.version);
+  console.log("Globimp: v", ownPackageJSON.version);
   addDiffPackageJSONInConfig();
 } catch (e) {
   console.log("Globimp: No configuration file found, creating one");
