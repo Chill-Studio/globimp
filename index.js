@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const fs = require("fs");
 const dir = process.cwd();
 const packageJSON = require(dir + "/package.json");
