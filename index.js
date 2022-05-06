@@ -1,20 +1,10 @@
-const { exec } = require("child_process");
 const fs = require("fs");
 const dir = process.cwd();
 const packageJSON = require(dir + "/package.json");
-exec("echo 'Globimp v" + packageJSON.version + "'", (error, stdout, stderr) => {
-  if (error) {
-    console.log(`error: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.log(`stderr: ${stderr}`);
-    return;
-  }
-  console.log(`${stdout}`);
+
 
   try {
-    console.log("Globimp: Try to read configuration file...");
+    console.log("Globimp: v",packageJSON.version);
     addDiffPackageJSONInConfig();
   } catch (e) {
     console.log("Globimp: No configuration file found, creating one");
