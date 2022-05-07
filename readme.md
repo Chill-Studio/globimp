@@ -3,6 +3,9 @@
 Access node_modules functions and variables from anywhere, without imports.
 With typescript support !
 
+How does it look ?
+[![Example](https://i.ibb.co/ygRDjz7/Screenshot-2022-05-07-at-13-15-36.png)](https://ibb.co/gt7GK0h)
+
 ## Github sources
 
 [https://github.com/Chill-Studio/globimp/tree/main](https://github.com/Chill-Studio/globimp/tree/main)
@@ -17,12 +20,22 @@ With typescript support !
 
 ```shell
 npm install -g globimp
+```
 
+In `package.json` you can add globimp command to `postinstall` the hooks.
+This way the globimp configuration will be updated when your `package.json` updates its dependencies
+
+```json
+scripts : {
+  ...
+  "postinstall" : "globimp"
+  ...
+}
 ```
 
 ### Generate a globimp files
 
-At the root of your npm project
+At the root of your npm project :
 
 ```shell
 globimp
@@ -30,6 +43,7 @@ globimp
 
 This will generate a `globimp.config.json` based on your `package.json` at the root.
 It will also generate an `globimp.ts` in `<root-of-project>/src`
+
 
 ### Import types
 

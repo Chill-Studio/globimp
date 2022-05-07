@@ -1,7 +1,10 @@
 {
   "name": "globimp",
   "version": "1.0.26",
-  "description": "use node_modules without imports and with typings.",
+  "description": "Access node_modules without importing them",
+  "contributors": [
+    "Robin Lebhar <robin.lebhar.chill.studio@gmail.com>"
+  ],
   "main": "index.js",
   "bin": {
     "globimp": "./bin/index.js"
@@ -12,8 +15,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kakouloukiam",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
   },
-  "keywords": ["global import","global imports","import","imports","global"]
+  "keywords": [
+    "global import",
+    "global imports",
+    "import",
+    "imports",
+    "import module",
+    "global modules",
+    "global",
+    "module imports"
+  ]
+  
 }

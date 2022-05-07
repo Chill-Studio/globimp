@@ -7,37 +7,38 @@ const packageJSON = require(dir + "/package.json");
 
 try {
   console.log("Globimp: v", ownPackageJSON.version);
-  addDiffPackageJSONInConfig();
+  setConfigFromPackageJSON();
 } catch (e) {
   console.log("Globimp: No configuration file found, creating one");
   createConfigFile();
 }
 createImportsTypings();
 console.log("Globimp: Done!");
+
 function createImportsTypings() {
-  const oldConfig = require(dir + "/globimp.config.json");
+  const currentConfig = require(dir + "/globimp.config.json");
   let imports = "";
   let typings = "";
   let globalVar = "";
-  for (let importKey in oldConfig.namedImports) {
+  for (let importKey in currentConfig.namedImports) {
     //handle default imports
-    if (oldConfig.defaultImports[importKey] === true) {
+    if (currentConfig.defaultImports[importKey] === true) {
       imports += `import * as ${importKey}_ from "${importKey}"\n`;
       typings += `\n var ${importKey} : typeof ${importKey}_.default\n`;
       globalVar += `global.${importKey} = ${importKey}_ as any\n`;
     } else {
       // handle named imports
-      const currentNamedImportsList = oldConfig.namedImports[importKey];
-      const innerImportStatement = currentNamedImportsList
+      const currentNamedImportList = currentConfig.namedImports[importKey];
+      const innerImportStatement = currentNamedImportList
         .map((namedImport) => `${namedImport} as ${namedImport}_`)
         .join(", ");
       if (innerImportStatement !== "") {
         imports += `import {${innerImportStatement} } from "${importKey}"\n`;
-        typings += currentNamedImportsList
+        typings += currentNamedImportList
           .map((namedImport) => ` var ${namedImport} : typeof ${namedImport}_`)
           .join("\n");
         globalVar +=
-          currentNamedImportsList
+          currentNamedImportList
             .map(
               (namedImport) => `global.${namedImport} = ${namedImport}_ as any`
             )
@@ -52,26 +53,30 @@ function createImportsTypings() {
     newline: true,
   });
 }
-function createConfigFile() {
-  // Write json config default
+
+function getInitialConfig() {
   let imports = { defaultImports: {}, namedImports: {} };
   for (let dependencieKey in packageJSON.dependencies) {
     imports.defaultImports[dependencieKey] = false;
     imports.namedImports[dependencieKey] = [];
   }
+  return imports;
+}
+function createConfigFile() {
+  const initialConfig = getInitialConfig();
   fs.writeFileSync(
     dir + `/globimp.config.json`,
-    JSON.stringify(imports, null, 2),
+    JSON.stringify(initialConfig, null, 2),
     { newline: true }
   );
 }
-
-function addDiffPackageJSONInConfig() {
+// Read the package.json and create a config according to it.
+// Keep already modified imports from the glopimp config before the update.
+function setConfigFromPackageJSON() {
   console.log("Updating dependencies...");
   let oldConfig = JSON.parse(fs.readFileSync(dir + `/globimp.config.json`));
-  createConfigFile();
-  let newConfig = JSON.parse(fs.readFileSync(dir + `/globimp.config.json`));
-  // // Merge existing key
+  let newConfig = getInitialConfig();
+  // Merge existing key into the newConfig
   for (const oldDefaultImportKey in oldConfig.defaultImports) {
     if (oldDefaultImportKey in newConfig.defaultImports) {
       newConfig.defaultImports[oldDefaultImportKey] =
