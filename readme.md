@@ -4,7 +4,7 @@ Access node_modules functions and variables from anywhere, without imports.
 With typescript support !
 
 How does it look ?
-[![Example](https://i.ibb.co/ygRDjz7/Screenshot-2022-05-07-at-13-15-36.png)](https://ibb.co/gt7GK0h)
+![Example](https://i.ibb.co/VMx0RpM/Screenshot-2022-05-08-at-21-13-36.png)
 
 ## Github sources
 
