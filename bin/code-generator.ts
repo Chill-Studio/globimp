@@ -2,41 +2,51 @@ import { writeFileSync } from "fs";
 import { GlobimpConfig } from "./types/globimp-config";
 const currentDirectory = process.cwd()
 
+interface CodeStatements { imports: string[], typings: string[], globalVars: string[] }
 // Based on the globimp.config.json, generate a globimp.ts containing the relevant types and global variables.
 export function generateGlobalImportsCode() {
+    let importGeneratedCode = "";
+    let typingsGeneratedCode = "";
+    let globalVarsGeneratedCode = "";
     const currentConfig = require(currentDirectory + "/globimp.config.json") as GlobimpConfig;
-    let imports = "";
-    let typings = "";
-    let globalVar = "";
+    let statementList: { [key: string]: CodeStatements } = {}
     for (let importKey in currentConfig.namedImports) {
         //handle default imports
         if (currentConfig.defaultImports[importKey] === true) {
-            imports += `import * as ${importKey}_ from "${importKey}"\n`;
-            typings += `\n var ${importKey} : typeof ${importKey}_.default\n`;
-            globalVar += `global.${importKey} = ${importKey}_ as any\n`;
-        } else {
-            // handle named imports
-            const currentNamedImportList = currentConfig.namedImports[importKey];
+            statementList = {
+                ...statementList,
+                [importKey]: {
+                    imports: [`import * as ${importKey}_ from "${importKey}"\n`],
+                    typings: [`\n    var ${importKey} : typeof ${importKey}_.default\n`],
+                    globalVars: [`global.${importKey} = ${importKey}_ as any\n`]
+                },
 
-            const innerImportStatement = currentNamedImportList
-                .map((namedImport) => `${namedImport} as ${namedImport}_`)
-                .join(", ");
-            if (innerImportStatement !== "") {
-                imports += `import {${innerImportStatement} } from "${importKey}"\n`;
-                typings += currentNamedImportList
-                    .map((namedImport) => ` var ${namedImport} : typeof ${namedImport}_`)
-                    .join("\n");
-                globalVar +=
-                    currentNamedImportList
-                        .map(
-                            (namedImport) => `global.${namedImport} = ${namedImport}_ as any`
-                        )
-                        .join("\n") + "\n";
             }
+        } else {
+            // Build an object having a CodeStatements shape to easily create a string out of it
+            const currentNamedImportList = currentConfig.namedImports[importKey];
+            statementList[importKey] = (currentNamedImportList.reduce((acc, namedImport) => {
+                acc[importKey] = {
+                    imports: [...(acc[importKey]?.imports || []), `${namedImport} as ${namedImport}_`],
+                    typings: [...(acc[importKey]?.typings || []), `    var ${namedImport} : typeof ${namedImport}_`],
+                    globalVars: [...(acc[importKey]?.globalVars || []), `global.${namedImport} = ${namedImport}_ as any`],
+
+                }
+                return acc
+
+            }, {}))[importKey] as CodeStatements
+            statementList[importKey].imports = [`import { ${statementList[importKey].imports.join(", ")} } from "${importKey}"\n`]
         }
+        importGeneratedCode += statementList[importKey].imports
+        typingsGeneratedCode += `${statementList[importKey].typings.join("\n")}`
+        globalVarsGeneratedCode += `${statementList[importKey].globalVars.join("\n")}\n`
     }
-    if (typings !== "") {
-        typings = `declare global {\n${typings}\n}\n`;
-    }
-    writeFileSync(currentDirectory + `/src/globimp.ts`, imports + typings + globalVar);
+    typingsGeneratedCode = `\ndeclare global {\n${typingsGeneratedCode}}\n\n`
+    writeFileSync(currentDirectory + `/src/globimp.ts`, importGeneratedCode + typingsGeneratedCode + globalVarsGeneratedCode);
+
 }
+
+
+
+
+

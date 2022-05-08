@@ -23,7 +23,7 @@ npm install -g globimp
 ```
 
 In `package.json` you can add globimp command to `postinstall` the hooks.
-This way the globimp configuration will be updated when your `package.json` updates its dependencies
+This way the globimp typings and variables will be updated when your `package.json` updates its dependencies
 
 ```json
 scripts : {
@@ -44,8 +44,7 @@ globimp
 This will generate a `globimp.config.json` based on your `package.json` at the root.
 It will also generate an `globimp.ts` in `<root-of-project>/src`
 
-
-### Import types
+### Enable Globimp
 
 At the root of your project import the global variable for them to be defined.
 
@@ -65,7 +64,7 @@ ReactDOM.render(
 );
 ```
 
-## Global default imports
+## Access default imports globaly
 
 In `globimp.config.json`, to have access a the default import, set the dependency value to `true` under the key `defaultImport`
 
@@ -82,7 +81,7 @@ In `globimp.config.json`, to have access a the default import, set the dependenc
 
 > **WARNING**: Any change in `globimp.config.json` require a `globimp` in order for the update to be taken into account
 
-## Global named imports
+## Access named imports globaly
 
 In `globimp.config.json`, to access a named import globally, add the name of the named import in the array of the relevant dependency
 

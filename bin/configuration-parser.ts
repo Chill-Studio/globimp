@@ -1,5 +1,5 @@
 
-import { writeFileSync, readFileSync } from "fs";
+import { writeFileSync } from "fs";
 import { GlobimpConfig } from "./types/globimp-config";
 const currentDirectory = process.cwd()
 const packageJSON = require(currentDirectory + "/package.json")

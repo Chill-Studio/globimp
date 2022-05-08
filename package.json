@@ -30,6 +30,7 @@
     "@types/node": "^17.0.31"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "react": "^0.27.2",
+    "axios":"0.27.2"
   }
 }
