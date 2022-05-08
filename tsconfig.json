@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true
+  },
+  "include": ["bin/**/*"],
+  "exclude": ["node_modules"]
+}

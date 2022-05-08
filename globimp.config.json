@@ -1,8 +1,0 @@
-{
-  "defaultImports": {
-    "axios": true
-  },
-  "namedImports": {
-    "axios": []
-  }
-}
