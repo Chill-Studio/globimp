@@ -11,6 +11,8 @@ export function generateGlobalImportsCode() {
     const currentConfig = require(currentDirectory + "/globimp.config.json") as GlobimpConfig;
     let statementList: { [key: string]: CodeStatements } = {}
     for (let importKey in currentConfig.namedImports) {
+
+
         //handle default imports
         statementList[importKey] = { imports: [], typings: [], globalVars: [] }
         if (currentConfig.defaultImports[importKey] === true) {
@@ -34,7 +36,6 @@ export function generateGlobalImportsCode() {
                         imports: [...(acc[importKey]?.imports || []), `${namedImport} as ${namedImport}_`],
                         typings: [...(acc[importKey]?.typings || []), `    var ${namedImport} : typeof ${namedImport}_`],
                         globalVars: [...(acc[importKey]?.globalVars || []), `global.${namedImport} = ${namedImport}_ as any`]
-
                     }
                     return acc
 
@@ -44,15 +45,14 @@ export function generateGlobalImportsCode() {
 
             }
         }
-        importGeneratedCode += statementList[importKey].imports + "\n"
-        typingsGeneratedCode += `${statementList[importKey].typings.join("\n")}\n`
-        globalVarsGeneratedCode += `${statementList[importKey].globalVars.join("\n")}\n`
+
+        importGeneratedCode += statementList[importKey].imports.length > 0 ? statementList[importKey].imports.join("\n") + "\n" : ""
+        typingsGeneratedCode += statementList[importKey].typings.length > 0 ? `${statementList[importKey].typings.join("\n")}` + "\n" : ""
+        globalVarsGeneratedCode += statementList[importKey].globalVars.length > 0 ? `${statementList[importKey].globalVars.join("\n")}` + "\n" : ""
 
 
     }
     if (typingsGeneratedCode.trim().length > 0) {
-        console.log("La valeur ", typingsGeneratedCode)
-
         typingsGeneratedCode = `declare global {\n${typingsGeneratedCode}}\n`
     }
     writeFileSync(currentDirectory + `/src/globimp.ts`, `/* Auto-generated file using globimp */

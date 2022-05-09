@@ -9,11 +9,14 @@ function createConfigFile() {
     (0, fs_1.writeFileSync)(currentDirectory + "/globimp.config.json", JSON.stringify(initialConfig, null, 2));
 }
 exports.createConfigFile = createConfigFile;
+// Create a config based on the dependencies of the package.json
 function getInitialConfig() {
     var imports = { defaultImports: {}, namedImports: {} };
-    for (var dependencieKey in packageJSON.dependencies) {
-        imports.defaultImports[dependencieKey] = false;
-        imports.namedImports[dependencieKey] = [];
+    for (var dependencyKey_ in packageJSON.dependencies) {
+        // Remove '@' and replace "/" and "-" by "_"
+        var dependencyKey = dependencyKey_.replace(/[/-]/g, "_").replace("@", "");
+        imports.defaultImports[dependencyKey] = false;
+        imports.namedImports[dependencyKey] = [];
     }
     return imports;
 }

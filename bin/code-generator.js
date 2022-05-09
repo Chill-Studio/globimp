@@ -57,15 +57,14 @@ function generateGlobalImportsCode() {
                 statementList[importKey].imports = ["import { ".concat(statementList[importKey].imports.join(", "), " } from \"").concat(importKey, "\"")];
             }
         }
-        importGeneratedCode += statementList[importKey].imports + "\n";
-        typingsGeneratedCode += "".concat(statementList[importKey].typings.join("\n"), "\n");
-        globalVarsGeneratedCode += "".concat(statementList[importKey].globalVars.join("\n"), "\n");
+        importGeneratedCode += statementList[importKey].imports.length > 0 ? statementList[importKey].imports.join("\n") + "\n" : "";
+        typingsGeneratedCode += statementList[importKey].typings.length > 0 ? "".concat(statementList[importKey].typings.join("\n")) + "\n" : "";
+        globalVarsGeneratedCode += statementList[importKey].globalVars.length > 0 ? "".concat(statementList[importKey].globalVars.join("\n")) + "\n" : "";
     };
     for (var importKey in currentConfig.namedImports) {
         _loop_1(importKey);
     }
     if (typingsGeneratedCode.trim().length > 0) {
-        console.log("La valeur ", typingsGeneratedCode);
         typingsGeneratedCode = "declare global {\n".concat(typingsGeneratedCode, "}\n");
     }
     (0, fs_1.writeFileSync)(currentDirectory + "/src/globimp.ts", "/* Auto-generated file using globimp */\n".concat(importGeneratedCode, "\n").concat(typingsGeneratedCode, "\n").concat(globalVarsGeneratedCode));

@@ -11,11 +11,14 @@ export function createConfigFile() {
     JSON.stringify(initialConfig, null, 2));
 }
 
+// Create a config based on the dependencies of the package.json
 export function getInitialConfig(): GlobimpConfig {
   let imports: GlobimpConfig = { defaultImports: {}, namedImports: {} };
-  for (let dependencieKey in packageJSON.dependencies) {
-    imports.defaultImports[dependencieKey] = false;
-    imports.namedImports[dependencieKey] = [];
+  for (let dependencyKey_ in packageJSON.dependencies) {
+    // Remove '@' and replace "/" and "-" by "_"
+    const dependencyKey = dependencyKey_.replace(/[/-]/g, "_").replace("@", "")
+    imports.defaultImports[dependencyKey] = false;
+    imports.namedImports[dependencyKey] = [];
   }
   return imports;
 }
