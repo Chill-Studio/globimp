@@ -22,7 +22,7 @@ export function generateGlobalImportsCode() {
                 ...statementList,
                 [importKey]: {
                     imports: [`import * as ${curratedImportName}_ from "${importKey}"`],
-                    typings: [`    var ${curratedImportName} : typeof ${curratedImportName}_.default`],
+                    typings: [`    var ${curratedImportName} : typeof ${curratedImportName}_${importKey.indexOf("@") == -1 ? ".default" : ""}`],
                     globalVars: [`global.${curratedImportName} = ${curratedImportName}_ as any`]
                 },
 

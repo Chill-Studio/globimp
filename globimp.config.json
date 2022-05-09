@@ -12,7 +12,7 @@
     "@types/node": false,
     "@types/react": false,
     "@types/react-redux": false,
-    "axios": false,
+    "axios": true,
     "framer-motion": false,
     "i18next": false,
     "i18next-browser-languagedetector": false,

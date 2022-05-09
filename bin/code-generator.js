@@ -39,7 +39,7 @@ function generateGlobalImportsCode() {
             // Remove '@' and replace "/" and "-" by "_"
             statementList = __assign(__assign({}, statementList), (_a = {}, _a[importKey] = {
                 imports: ["import * as ".concat(curratedImportName, "_ from \"").concat(importKey, "\"")],
-                typings: ["    var ".concat(curratedImportName, " : typeof ").concat(curratedImportName, "_.default")],
+                typings: ["    var ".concat(curratedImportName, " : typeof ").concat(curratedImportName, "_").concat(importKey.indexOf("@") == -1 ? ".default" : "")],
                 globalVars: ["global.".concat(curratedImportName, " = ").concat(curratedImportName, "_ as any")]
             }, _a));
         }

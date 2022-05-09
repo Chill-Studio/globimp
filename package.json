@@ -1,6 +1,6 @@
 {
   "name": "globimp",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "description": "Access node_modules without importing them",
   "contributors": [
     "Robin Lebhar <robin.lebhar.chill.studio@gmail.com>"
@@ -28,7 +28,7 @@
     "global",
     "module imports"
   ],
-  "dependencies": {
+  "dependencies": {    
   },
   "devDependencies": {
     "@types/node": "^17.0.31"
