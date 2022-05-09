@@ -1,4 +1,13 @@
 {
-  "defaultImports": {},
-  "namedImports": {}
+  "defaultImports": {
+    "axios": true,
+    "react": false
+  },
+  "namedImports": {
+    "axios": [],
+    "react": [
+      "noki",
+      "doko"
+    ]
+  }
 }
