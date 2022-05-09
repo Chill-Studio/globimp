@@ -12,17 +12,18 @@ export function generateGlobalImportsCode() {
     let statementList: { [key: string]: CodeStatements } = {}
     for (let importKey in currentConfig.namedImports) {
 
-
+        const curratedImportName = importKey.replace(/[/-]/g, "_").replace("@", "")
         //handle default imports
         statementList[importKey] = { imports: [], typings: [], globalVars: [] }
         if (currentConfig.defaultImports[importKey] === true) {
+            // Remove '@' and replace "/" and "-" by "_"
 
             statementList = {
                 ...statementList,
                 [importKey]: {
-                    imports: [`import * as ${importKey}_ from "${importKey}"`],
-                    typings: [`    var ${importKey} : typeof ${importKey}_.default`],
-                    globalVars: [`global.${importKey} = ${importKey}_ as any`]
+                    imports: [`import * as ${curratedImportName}_ from "${importKey}"`],
+                    typings: [`    var ${curratedImportName} : typeof ${curratedImportName}_.default`],
+                    globalVars: [`global.${curratedImportName} = ${curratedImportName}_ as any`]
                 },
 
             }

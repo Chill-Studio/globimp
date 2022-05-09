@@ -32,13 +32,15 @@ function generateGlobalImportsCode() {
     var statementList = {};
     var _loop_1 = function (importKey) {
         var _a;
+        var curratedImportName = importKey.replace(/[/-]/g, "_").replace("@", "");
         //handle default imports
         statementList[importKey] = { imports: [], typings: [], globalVars: [] };
         if (currentConfig.defaultImports[importKey] === true) {
+            // Remove '@' and replace "/" and "-" by "_"
             statementList = __assign(__assign({}, statementList), (_a = {}, _a[importKey] = {
-                imports: ["import * as ".concat(importKey, "_ from \"").concat(importKey, "\"")],
-                typings: ["    var ".concat(importKey, " : typeof ").concat(importKey, "_.default")],
-                globalVars: ["global.".concat(importKey, " = ").concat(importKey, "_ as any")]
+                imports: ["import * as ".concat(curratedImportName, "_ from \"").concat(importKey, "\"")],
+                typings: ["    var ".concat(curratedImportName, " : typeof ").concat(curratedImportName, "_.default")],
+                globalVars: ["global.".concat(curratedImportName, " = ").concat(curratedImportName, "_ as any")]
             }, _a));
         }
         else {

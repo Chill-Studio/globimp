@@ -14,9 +14,7 @@ export function createConfigFile() {
 // Create a config based on the dependencies of the package.json
 export function getInitialConfig(): GlobimpConfig {
   let imports: GlobimpConfig = { defaultImports: {}, namedImports: {} };
-  for (let dependencyKey_ in packageJSON.dependencies) {
-    // Remove '@' and replace "/" and "-" by "_"
-    const dependencyKey = dependencyKey_.replace(/[/-]/g, "_").replace("@", "")
+  for (let dependencyKey in packageJSON.dependencies) {
     imports.defaultImports[dependencyKey] = false;
     imports.namedImports[dependencyKey] = [];
   }

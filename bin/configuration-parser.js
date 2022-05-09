@@ -12,9 +12,7 @@ exports.createConfigFile = createConfigFile;
 // Create a config based on the dependencies of the package.json
 function getInitialConfig() {
     var imports = { defaultImports: {}, namedImports: {} };
-    for (var dependencyKey_ in packageJSON.dependencies) {
-        // Remove '@' and replace "/" and "-" by "_"
-        var dependencyKey = dependencyKey_.replace(/[/-]/g, "_").replace("@", "");
+    for (var dependencyKey in packageJSON.dependencies) {
         imports.defaultImports[dependencyKey] = false;
         imports.namedImports[dependencyKey] = [];
     }
