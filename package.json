@@ -1,6 +1,6 @@
 {
   "name": "globimp",
-  "version": "1.0.29",
+  "version": "1.0.3O",
   "description": "Access node_modules without importing them",
   "contributors": [
     "Robin Lebhar <robin.lebhar.chill.studio@gmail.com>"
