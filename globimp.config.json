@@ -1,13 +1,4 @@
 {
-  "defaultImports": {
-    "react": false,
-    "axios": true
-  },
-  "namedImports": {
-    "react": [
-      "useEffect",
-      "useState"
-    ],
-    "axios": []
-  }
+  "defaultImports": {},
+  "namedImports": {}
 }

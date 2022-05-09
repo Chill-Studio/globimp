@@ -41,8 +41,13 @@ export function generateGlobalImportsCode() {
         typingsGeneratedCode += `${statementList[importKey].typings.join("\n")}`
         globalVarsGeneratedCode += `${statementList[importKey].globalVars.join("\n")}\n`
     }
-    typingsGeneratedCode = `\ndeclare global {\n${typingsGeneratedCode}}\n\n`
-    writeFileSync(currentDirectory + `/src/globimp.ts`, importGeneratedCode + typingsGeneratedCode + globalVarsGeneratedCode);
+    if (typingsGeneratedCode !== "") {
+        typingsGeneratedCode = `\ndeclare global {\n${typingsGeneratedCode}}\n\n`
+    }
+    writeFileSync(currentDirectory + `/src/globimp.ts`, `/* Auto-generated file using globimp */\n
+     ${importGeneratedCode}
+     ${typingsGeneratedCode}
+     ${globalVarsGeneratedCode}`);
 
 }
 

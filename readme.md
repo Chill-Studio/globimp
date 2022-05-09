@@ -4,7 +4,7 @@ Access node_modules functions and variables from anywhere, without imports.
 With typescript support !
 
 How does it look ?
-![Example](https://i.ibb.co/VMx0RpM/Screenshot-2022-05-08-at-21-13-36.png)
+![Example](https://i.ibb.co/JB2GVL2/screenshot-2.png)
 
 ## Github sources
 
@@ -84,6 +84,8 @@ In `globimp.config.json`, to have access a the default import, set the dependenc
 ## Access named imports globaly
 
 In `globimp.config.json`, to access a named import globally, add the name of the named import in the array of the relevant dependency
+
+**Note** If this import is already defined and set to true in the default section, the namedImports section will be ignored.
 
 ```json
   "namedImports": {
