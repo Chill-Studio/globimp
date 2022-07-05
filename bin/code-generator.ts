@@ -32,7 +32,7 @@ export function generateGlobalImportsCode() {
             }`,
           ],
           globalVars: [
-            `global.${curratedImportName} = ${curratedImportName}_ as any`,
+            `window.${curratedImportName} = ${curratedImportName}_ as any`,
           ],
         },
       };
@@ -53,7 +53,7 @@ export function generateGlobalImportsCode() {
               ],
               globalVars: [
                 ...(acc[importKey]?.globalVars || []),
-                `global.${namedImport} = ${namedImport}_ as any`,
+                `window.${namedImport} = ${namedImport}_ as any`,
               ],
             };
             return acc;

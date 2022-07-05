@@ -1,6 +1,6 @@
 "use strict";
 var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
+    __assign = Object.assign || function (t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
             for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
@@ -44,7 +44,7 @@ function generateGlobalImportsCode() {
                     "    var ".concat(curratedImportName, " : typeof ").concat(curratedImportName, "_").concat(importKey.indexOf("@") == -1 ? ".default" : ""),
                 ],
                 globalVars: [
-                    "global.".concat(curratedImportName, " = ").concat(curratedImportName, "_ as any"),
+                    "window.".concat(curratedImportName, " = ").concat(curratedImportName, "_ as any"),
                 ]
             }, _a));
         }
@@ -62,7 +62,7 @@ function generateGlobalImportsCode() {
                             "    var ".concat(namedImport, " : typeof ").concat(namedImport, "_"),
                         ], false),
                         globalVars: __spreadArray(__spreadArray([], (((_c = acc[importKey]) === null || _c === void 0 ? void 0 : _c.globalVars) || []), true), [
-                            "global.".concat(namedImport, " = ").concat(namedImport, "_ as any"),
+                            "window.".concat(namedImport, " = ").concat(namedImport, "_ as any"),
                         ], false)
                     };
                     return acc;
