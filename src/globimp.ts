@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 /* Auto-generated file using globimp */
 import * as chakra_ui_react_ from "@chakra-ui/react"
 import * as axios_ from "axios"

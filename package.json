@@ -1,6 +1,6 @@
 {
   "name": "globimp",
-  "version": "1.0.42",
+  "version": "1.0.45",
   "description": "Access node_modules without importing them",
   "contributors": [
     "Robin Lebhar <robin.lebhar.chill.studio@gmail.com>"
@@ -11,9 +11,9 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "build": "tsc",
-    "start": "tsc && node ./bin/index.js",
-    "publish-npm":"tsc && npm publish --access public",
+    "build": "npx tsc",
+    "start": "npx tsc && node ./bin/index.js",
+    "publish-npm": "tsc && npm publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kakouloukiam",
@@ -28,7 +28,8 @@
     "global",
     "module imports"
   ],
-  "dependencies": {    
+  "dependencies": {
+    "typescript": "^4.7.4"
   },
   "devDependencies": {
     "@types/node": "^17.0.31"
