@@ -3,6 +3,7 @@
     "typescript": false
   },
   "namedImports": {
-    "typescript": []
+    "typescript": [
+    ]
   }
 }
